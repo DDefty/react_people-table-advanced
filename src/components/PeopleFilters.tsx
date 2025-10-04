@@ -7,8 +7,10 @@ type Props = {
 };
 
 export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
-  const [query, setQuery] = useState<string>('');
   const [searchParams] = useSearchParams();
+  const [query, setQuery] = useState<string>(
+    () => searchParams.get('query') || '',
+  );
 
   const selectedSex = searchParams.get('sex');
   const selectedCenturies = searchParams.getAll('centuries');

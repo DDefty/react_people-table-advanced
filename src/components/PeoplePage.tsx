@@ -61,36 +61,44 @@ export const PeoplePage = () => {
     switch (sort) {
       case 'name':
         if (order && order === 'desc') {
-          return filteredPeople.sort((a: Person, b: Person) =>
+          return [...filteredPeople].sort((a: Person, b: Person) =>
             b.name.localeCompare(a.name),
           );
         }
 
-        return filteredPeople.sort((a: Person, b: Person) =>
+        return [...filteredPeople].sort((a: Person, b: Person) =>
           a.name.localeCompare(b.name),
         );
       case 'sex':
         if (order && order === 'desc') {
-          return filteredPeople.sort((a: Person, b: Person) =>
+          return [...filteredPeople].sort((a: Person, b: Person) =>
             b.sex.localeCompare(a.sex),
           );
         }
 
-        return filteredPeople.sort((a: Person, b: Person) =>
+        return [...filteredPeople].sort((a: Person, b: Person) =>
           a.sex.localeCompare(b.sex),
         );
       case 'born':
         if (order && order === 'desc') {
-          return filteredPeople.sort((a: Person, b: Person) => b.born - a.born);
+          return [...filteredPeople].sort(
+            (a: Person, b: Person) => b.born - a.born,
+          );
         }
 
-        return filteredPeople.sort((a: Person, b: Person) => a.born - b.born);
+        return [...filteredPeople].sort(
+          (a: Person, b: Person) => a.born - b.born,
+        );
       case 'died':
         if (order && order === 'desc') {
-          return filteredPeople.sort((a: Person, b: Person) => b.died - a.died);
+          return [...filteredPeople].sort(
+            (a: Person, b: Person) => b.died - a.died,
+          );
         }
 
-        return filteredPeople.sort((a: Person, b: Person) => a.died - b.died);
+        return [...filteredPeople].sort(
+          (a: Person, b: Person) => a.died - b.died,
+        );
       default:
         return filteredPeople;
     }

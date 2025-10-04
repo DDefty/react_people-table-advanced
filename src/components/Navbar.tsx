@@ -30,7 +30,11 @@ export const Navbar = () => {
                 ? 'navbar-item has-background-grey-lighter'
                 : 'navbar-item'
             }
-            to="/people"
+            to={
+              isPeople
+                ? { pathname: '/people', search: location.search }
+                : '/people'
+            }
           >
             People
           </Link>
