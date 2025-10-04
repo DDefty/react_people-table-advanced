@@ -12,7 +12,12 @@ type Props = {
   order: string | null;
 };
 
-export const PeopleTable: React.FC<Props> = ({ people, selectedSlug, sort, order }) => {
+export const PeopleTable: React.FC<Props> = ({
+  people,
+  selectedSlug,
+  sort,
+  order,
+}) => {
   const [searchParams] = useSearchParams();
 
   const getSortLink = (field: string) => {
@@ -30,11 +35,11 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedSlug, sort, order
 
   const getSortIcon = (field: string) => {
     if (sort !== field) {
-      return "fas fa-sort";
+      return 'fas fa-sort';
     } else if (sort === field && order === null) {
-      return "fas fa-sort-up";
+      return 'fas fa-sort-up';
     } else {
-      return "fas fa-sort-down";
+      return 'fas fa-sort-down';
     }
   };
 
@@ -51,7 +56,6 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedSlug, sort, order
   if (people.length === 0) {
     return null;
   }
-
 
   return (
     <table
@@ -159,4 +163,4 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedSlug, sort, order
       </tbody>
     </table>
   );
-}
+};

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { getSearchWith } from '../utils/searchHelper';
 
 type Props = {
@@ -15,42 +15,53 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
 
   useEffect(() => {
     handleChange(query);
-  },[query])
+  }, [query, handleChange]);
 
   const handleCenturyToggle = (century: string) => {
     const params = new URLSearchParams(searchParams);
     const currentCenturies = params.getAll('centuries');
-    
+
     if (currentCenturies.includes(century)) {
       // Remove the century
       params.delete('centuries');
-      currentCenturies.filter(c => c !== century).forEach(c => {
-        params.append('centuries', c);
-      });
+      currentCenturies
+        .filter(c => c !== century)
+        .forEach(c => {
+          params.append('centuries', c);
+        });
     } else {
       // Add the century
       params.append('centuries', century);
     }
-    
+
     return params.toString();
   };
 
   const clearAllCenturies = () => {
     return getSearchWith(searchParams, { centuries: null });
   };
- 
+
   return (
     <nav className="panel">
       <p className="panel-heading">Filters</p>
 
       <p className="panel-tabs" data-cy="SexFilter">
-        <Link className={selectedSex === null ? "is-active" : ''} to={{ search: getSearchWith(searchParams, { sex: null }) }}>
+        <Link
+          className={selectedSex === null ? 'is-active' : ''}
+          to={{ search: getSearchWith(searchParams, { sex: null }) }}
+        >
           All
         </Link>
-        <Link className={selectedSex === 'm' ? "is-active" : ''} to={{ search: getSearchWith(searchParams, { sex: 'm' }) }}>
+        <Link
+          className={selectedSex === 'm' ? 'is-active' : ''}
+          to={{ search: getSearchWith(searchParams, { sex: 'm' }) }}
+        >
           Male
         </Link>
-        <Link className={selectedSex === 'f' ? "is-active" : ''} to={{ search: getSearchWith(searchParams, { sex: 'f' }) }}>
+        <Link
+          className={selectedSex === 'f' ? 'is-active' : ''}
+          to={{ search: getSearchWith(searchParams, { sex: 'f' }) }}
+        >
           Female
         </Link>
       </p>
@@ -67,7 +78,11 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
           />
 
           <span className="icon is-left">
-            <i className="fas fa-search" aria-hidden="true" onClick={() => setQuery('')} />
+            <i
+              className="fas fa-search"
+              aria-hidden="true"
+              onClick={() => setQuery('')}
+            />
           </span>
         </p>
       </div>
@@ -77,7 +92,11 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
           <div className="level-left">
             <Link
               data-cy="century"
-              className={selectedCenturies.includes('16') ? "button mr-1 is-info" : 'button mr-1'}
+              className={
+                selectedCenturies.includes('16')
+                  ? 'button mr-1 is-info'
+                  : 'button mr-1'
+              }
               to={{ search: handleCenturyToggle('16') }}
             >
               16
@@ -85,7 +104,11 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
 
             <Link
               data-cy="century"
-              className={selectedCenturies.includes('17') ? "button mr-1 is-info" : 'button mr-1'}
+              className={
+                selectedCenturies.includes('17')
+                  ? 'button mr-1 is-info'
+                  : 'button mr-1'
+              }
               to={{ search: handleCenturyToggle('17') }}
             >
               17
@@ -93,7 +116,11 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
 
             <Link
               data-cy="century"
-              className={selectedCenturies.includes('18') ? "button mr-1 is-info" : 'button mr-1'}
+              className={
+                selectedCenturies.includes('18')
+                  ? 'button mr-1 is-info'
+                  : 'button mr-1'
+              }
               to={{ search: handleCenturyToggle('18') }}
             >
               18
@@ -101,7 +128,11 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
 
             <Link
               data-cy="century"
-              className={selectedCenturies.includes('19') ? "button mr-1 is-info" : 'button mr-1'}
+              className={
+                selectedCenturies.includes('19')
+                  ? 'button mr-1 is-info'
+                  : 'button mr-1'
+              }
               to={{ search: handleCenturyToggle('19') }}
             >
               19
@@ -109,7 +140,11 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
 
             <Link
               data-cy="century"
-              className={selectedCenturies.includes('20') ? "button mr-1 is-info" : 'button mr-1'}
+              className={
+                selectedCenturies.includes('20')
+                  ? 'button mr-1 is-info'
+                  : 'button mr-1'
+              }
               to={{ search: handleCenturyToggle('20') }}
             >
               20
@@ -119,7 +154,11 @@ export const PeopleFilters: React.FC<Props> = ({ handleChange }) => {
           <div className="level-right ml-4">
             <Link
               data-cy="centuryALL"
-              className={selectedCenturies.length === 0 ? "button is-success" : 'button is-success is-outlined'}
+              className={
+                selectedCenturies.length === 0
+                  ? 'button is-success'
+                  : 'button is-success is-outlined'
+              }
               to={{ search: clearAllCenturies() }}
             >
               All

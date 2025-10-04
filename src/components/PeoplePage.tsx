@@ -10,7 +10,6 @@ export type Sex = 'm' | 'f' | null;
 
 export type Century = 16 | 17 | 18 | 19 | 20 | null;
 
-
 export const PeoplePage = () => {
   const [people, setPeople] = useState<Person[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,8 +17,8 @@ export const PeoplePage = () => {
   const { slug: selectedSlug } = useParams<{ slug?: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const sort = searchParams.get("sort");
-  const order = searchParams.get("order");
+  const sort = searchParams.get('sort');
+  const order = searchParams.get('order');
   const sex = searchParams.get('sex');
   const query = searchParams.get('query') || '';
   const centuries = searchParams.getAll('centuries');
@@ -35,9 +34,11 @@ export const PeoplePage = () => {
       if (query) {
         const searchTerm = query.toLowerCase();
         const matchesName = person.name.toLowerCase().includes(searchTerm);
-        const matchesMotherName = person.motherName?.toLowerCase().includes(searchTerm) || false;
-        const matchesFatherName = person.fatherName?.toLowerCase().includes(searchTerm) || false;
-        
+        const matchesMotherName =
+          person.motherName?.toLowerCase().includes(searchTerm) || false;
+        const matchesFatherName =
+          person.fatherName?.toLowerCase().includes(searchTerm) || false;
+
         if (!matchesName && !matchesMotherName && !matchesFatherName) {
           return false;
         }
@@ -46,6 +47,7 @@ export const PeoplePage = () => {
       // Filter by centuries (multiple selection)
       if (centuries.length > 0) {
         const personCentury = Math.ceil(person.born / 100);
+
         if (!centuries.includes(personCentury.toString())) {
           return false;
         }
@@ -55,34 +57,44 @@ export const PeoplePage = () => {
     });
   }, [people, sex, query, centuries]);
 
-
   const sortedPeople = useMemo(() => {
     switch (sort) {
-      case "name":
+      case 'name':
         if (order && order === 'desc') {
-          return filteredPeople.sort((a: Person, b: Person) => b.name.localeCompare(a.name));
+          return filteredPeople.sort((a: Person, b: Person) =>
+            b.name.localeCompare(a.name),
+          );
         }
-        return filteredPeople.sort((a: Person, b: Person) => a.name.localeCompare(b.name));
-      case "sex":
+
+        return filteredPeople.sort((a: Person, b: Person) =>
+          a.name.localeCompare(b.name),
+        );
+      case 'sex':
         if (order && order === 'desc') {
-          return filteredPeople.sort((a: Person, b: Person) => b.sex.localeCompare(a.sex));
+          return filteredPeople.sort((a: Person, b: Person) =>
+            b.sex.localeCompare(a.sex),
+          );
         }
-        return filteredPeople.sort((a: Person, b: Person) => a.sex.localeCompare(b.sex));
-      case "born":
+
+        return filteredPeople.sort((a: Person, b: Person) =>
+          a.sex.localeCompare(b.sex),
+        );
+      case 'born':
         if (order && order === 'desc') {
           return filteredPeople.sort((a: Person, b: Person) => b.born - a.born);
         }
+
         return filteredPeople.sort((a: Person, b: Person) => a.born - b.born);
-      case "died":
+      case 'died':
         if (order && order === 'desc') {
           return filteredPeople.sort((a: Person, b: Person) => b.died - a.died);
         }
+
         return filteredPeople.sort((a: Person, b: Person) => a.died - b.died);
       default:
         return filteredPeople;
     }
-  }, [filteredPeople, sort, order])
-
+  }, [filteredPeople, sort, order]);
 
   useEffect(() => {
     api
@@ -97,16 +109,17 @@ export const PeoplePage = () => {
       });
   }, []);
 
-  const handleChange = (query: string) => {
+  const handleChange = (queryValue: string) => {
     const params = new URLSearchParams(searchParams);
-    if (query !== '') {
-      params.set('query', query);
+
+    if (queryValue !== '') {
+      params.set('query', queryValue);
       setSearchParams(params);
     } else {
       params.delete('query');
       setSearchParams(params);
     }
-  }
+  };
 
   return (
     <>
@@ -114,9 +127,11 @@ export const PeoplePage = () => {
 
       <div className="block">
         <div className="columns is-desktop is-flex-direction-row-reverse">
-          {!isLoading && <div className="column is-7-tablet is-narrow-desktop">
-            <PeopleFilters handleChange={handleChange} />
-          </div>}
+          {!isLoading && (
+            <div className="column is-7-tablet is-narrow-desktop">
+              <PeopleFilters handleChange={handleChange} />
+            </div>
+          )}
 
           <div className="column">
             <div className="box table-container">
@@ -127,10 +142,17 @@ export const PeoplePage = () => {
                 </p>
               )}
               {!isLoading && error === '' && sortedPeople.length === 0 && (
-                <p data-cy="noPeopleMessage">There are no people on the server</p>
+                <p data-cy="noPeopleMessage">
+                  There are no people on the server
+                </p>
               )}
               {!isLoading && error === '' && sortedPeople.length > 0 && (
-                <PeopleTable people={sortedPeople} selectedSlug={selectedSlug} sort={sort} order={order} />
+                <PeopleTable
+                  people={sortedPeople}
+                  selectedSlug={selectedSlug}
+                  sort={sort}
+                  order={order}
+                />
               )}
             </div>
           </div>

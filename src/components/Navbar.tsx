@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 
 export const Navbar = () => {
   const location = useLocation();
@@ -14,26 +14,26 @@ export const Navbar = () => {
       <div className="container">
         <div className="navbar-brand">
           <Link
-              className={
-                location.pathname === '/'
-                  ? 'navbar-item has-background-grey-lighter'
-                  : 'navbar-item'
-              }
-              to="/"
-            >
-              Home
-            </Link>
+            className={
+              location.pathname === '/'
+                ? 'navbar-item has-background-grey-lighter'
+                : 'navbar-item'
+            }
+            to="/"
+          >
+            Home
+          </Link>
 
           <Link
-              className={
-                isPeople
-                  ? 'navbar-item has-background-grey-lighter'
-                  : 'navbar-item'
-              }
-              to="/people"
-            >
-              People
-            </Link>
+            className={
+              isPeople
+                ? 'navbar-item has-background-grey-lighter'
+                : 'navbar-item'
+            }
+            to="/people"
+          >
+            People
+          </Link>
         </div>
       </div>
     </nav>
